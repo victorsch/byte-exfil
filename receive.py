@@ -6,7 +6,7 @@ def decode_exfil_data(data):
     bytes = []
     output = ''
     for url in data:
-        bytes.append(url.split('.')[0][5:])
+        bytes.append(url.split('.')[0][6:])
     for b in bytes:
         output += (chr(int(b)))
     return(base64.b64decode(output).decode('utf-8'))
@@ -34,11 +34,26 @@ if(log_file != None):
 
 for log in logs:
     url = log.split(' ')[10]
-    print(url)
-    if("lotech" in url):
+    if("lot3ch" in url):
         urls.append(url)
 
+important_data = []
+adding_mode = False
+temp_important_data = []
 for url in urls:
-    print(url)
+    relevant_number = url.split('.')[0][6:]
+    print(relevant_number)
 
-#print(decode_exfil_data(urls))
+    if (relevant_number == '218'):
+        adding_mode = False
+        important_data.append(temp_important_data)
+        temp_important_data = []
+    elif (adding_mode):
+        temp_important_data.append(url)
+    elif (relevant_number == '216'):
+        adding_mode = True
+
+for data in important_data:
+    print(decode_exfil_data(data))
+
+
