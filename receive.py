@@ -9,7 +9,8 @@ def decode_exfil_data(data):
         bytes.append(url.split('.')[0][6:])
     for b in bytes:
         output += (chr(int(b)))
-    return(base64.b64decode(output).decode('utf-8'))
+    print(output)
+    return(base64.b64decode(output))
 
 
 
@@ -53,7 +54,14 @@ for url in urls:
     elif (relevant_number == '216'):
         adding_mode = True
 
-for data in important_data:
+print(important_data)
+
+for i in range(0, len(important_data)):
+    data = important_data[i]
+    print(data)
     print(decode_exfil_data(data))
+    new_file = open('file' + str(i), 'w')
+    new_file.write(decode_exfil_data(data).decode('utf-8'))
+    new_file.close()
 
 
